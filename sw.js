@@ -1,6 +1,6 @@
 // Offline cache: serve from cache right away, refresh the cache in the background.
 // Bump VERSION when publishing a new index.html so phones pick it up on the next launch.
-const VERSION = 'pg-v1';
+const VERSION = 'pg-v2';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './apple-touch-icon.png',
   'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js',
   'https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js'];
