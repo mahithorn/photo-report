@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>รายงานภาพถ่ายหน้างาน</title>
-<meta name="theme-color" content="#f4f3ef">
+<meta name="theme-color" content="#f4f3ef" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#161616" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -18,9 +19,11 @@
 :root{
   --bg:#f4f3ef;--panel:#ffffff;--ink:#1d1d1f;--muted:#6e6e73;--line:#e3e1db;
   --accent:#2f6f5e;--accent-ink:#ffffff;--sel:#e8a33d;--slot:#ecebe6;--field:#f8f7f4;
+  --danger:#c03b3b;--danger-line:#e6b4b4;--pick:#d64545;
 }
 @media (prefers-color-scheme:dark){
-  :root{--bg:#161616;--panel:#212121;--ink:#f2f2f2;--muted:#a0a0a0;--line:#343434;--accent:#4fa58c;--slot:#2b2b2b;--field:#2a2a2a}
+  :root{--bg:#161616;--panel:#212121;--ink:#f2f2f2;--muted:#a0a0a0;--line:#4a4a4a;--accent:#4fa58c;--accent-ink:#0f1a17;--slot:#2b2b2b;--field:#2a2a2a;
+    --danger:#ff8a80;--danger-line:#6b3434}
 }
 *{box-sizing:border-box}
 html,body{margin:0}
@@ -30,7 +33,7 @@ body{font-family:Sarabun,-apple-system,"Segoe UI",Tahoma,sans-serif;background:v
 h1{font-size:20px;margin:0}
 .sub{color:var(--muted);font-size:13px;margin-top:2px}
 .sec{font-size:12px;font-weight:700;letter-spacing:.04em;color:var(--accent);margin:6px 0 -6px;text-transform:uppercase}
-.group label.t{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+.group .t{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
 .field{width:100%;border:1px solid var(--line);background:var(--field);color:var(--ink);border-radius:10px;padding:10px 12px;font:inherit;font-size:16px}
 .field:focus{outline:2px solid var(--accent);outline-offset:-1px}
 .seg{display:flex;background:var(--bg);border-radius:10px;padding:3px;gap:3px}
@@ -58,7 +61,7 @@ input[type=color]{width:34px;height:34px;border:0;background:none;padding:0;curs
 .selbar.show{display:flex}
 .selbar .ttl{font-size:13px;font-weight:600}
 .status{font-size:13px;color:var(--accent);min-height:18px}
-.seg button small{display:block;font-size:11px;color:var(--muted);font-weight:400;line-height:1.2}
+.seg button small{display:block;font-size:12px;color:var(--muted);font-weight:400;line-height:1.2}
 .toast{position:fixed;top:14px;left:50%;transform:translate(-50%,-150%);z-index:30;background:var(--panel);border:1px solid var(--line);box-shadow:0 6px 24px rgba(0,0,0,.2);border-radius:12px;padding:10px 16px;min-width:230px;font-size:14px;transition:transform .2s}
 .toast.show{transform:translate(-50%,0)}
 .toast .bar{height:6px;background:var(--bg);border-radius:3px;margin-top:8px;overflow:hidden}
@@ -83,18 +86,18 @@ main{padding:24px;display:flex;flex-direction:column;align-items:center;gap:26px
 .cell.drop .im{outline:3px dashed var(--accent);outline-offset:-3px}
 .cell.pick .im{position:relative}
 .cell.pick .im::before{content:"";position:absolute;top:6px;right:6px;width:22px;height:22px;border-radius:50%;border:2px solid #fff;background:rgba(0,0,0,.25);box-shadow:0 1px 3px rgba(0,0,0,.4)}
-.cell.pick.on .im::before{content:"✓";background:#d64545;color:#fff;font-size:14px;line-height:18px;text-align:center;font-weight:700}
+.cell.pick.on .im::before{content:"✓";background:var(--pick);color:#fff;font-size:14px;line-height:18px;text-align:center;font-weight:700}
 .cell.pick.on img{opacity:.6}
 .ghost{position:fixed;left:0;top:0;width:90px;height:90px;object-fit:cover;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.35);pointer-events:none;z-index:40;opacity:.9}
 .savestate{font-size:12px;color:var(--accent);margin-top:4px;min-height:16px}
-.btn.danger{color:#c03b3b;border-color:#e6b4b4}
+.btn.danger{color:var(--danger);border-color:var(--danger-line)}
 .cell .im{flex:1;min-height:0;overflow:hidden;background:var(--slot)}
 .cell img{width:100%;height:100%;display:block;pointer-events:none}
 .cell .cap{display:flex;align-items:center;justify-content:center;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 1cqw}
 .cell .cap.ph{opacity:.35}
 .cell.empty .im{display:flex;align-items:center;justify-content:center;color:#9a9890;font-size:28px;border:1.5px dashed #d6d4ce;background:transparent}
 .cell.sel .im{outline:3px solid var(--sel);outline-offset:-3px;position:relative}
-.cell.sel .im::after{content:"เลือกอยู่";position:absolute;top:6px;left:6px;background:var(--sel);color:#000;font-size:11px;padding:2px 6px;border-radius:6px}
+.cell.sel .im::after{content:"เลือกอยู่";position:absolute;top:6px;left:6px;background:var(--sel);color:#000;font-size:12px;padding:2px 6px;border-radius:6px}
 
 .sheet{display:flex;flex-direction:column;gap:16px}
 .btn-col{display:flex;flex-direction:column;gap:10px}
@@ -108,6 +111,21 @@ main{padding:24px;display:flex;flex-direction:column;align-items:center;gap:26px
 .ready.show{display:flex}
 .ready .card{background:var(--panel);border-radius:16px;padding:20px;width:min(360px,100%);display:flex;flex-direction:column;gap:12px}
 .ready .ttl{font-size:18px;font-weight:700}
+/* states: visible focus, press feedback, hover only where hover exists */
+:where(button,input,select,.cell):focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.cell:focus-visible{outline-offset:-2px;z-index:1}
+.btn,.seg button,.sw,.tabbar .ic{transition:background-color .12s,filter .12s,border-color .12s}
+.btn:not(:disabled):active{filter:brightness(.9)}
+.seg button:not(.on):active{background:var(--slot)}
+.tabbar button:active .ic{background:var(--slot)}
+.tabbar .add:active .ic{filter:brightness(.9);background:var(--accent)}
+@media (hover:hover){.btn:not(:disabled):hover{border-color:var(--muted)}.btn.primary:not(:disabled):hover{filter:brightness(1.08)}
+  .seg button:not(.on):hover{background:var(--slot)}}
+.selbar .head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.icbtn{width:44px;height:44px;padding:0;display:inline-flex;align-items:center;justify-content:center}
+.btn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:-4px}
+.nav2{display:flex;gap:6px;flex:none}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 
 /* ---------- phone ---------- */
 @media (max-width:820px){
@@ -132,9 +150,16 @@ main{padding:24px;display:flex;flex-direction:column;align-items:center;gap:26px
   .tabbar button{flex:1;border:0;background:none;font:inherit;font-size:12px;color:var(--ink);display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px 0;cursor:pointer}
   .tabbar .ic{width:46px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:15px}
   .tabbar svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-  .tabbar .add .ic{background:var(--accent);color:#fff}
+  .tabbar .add .ic{background:var(--accent);color:var(--accent-ink)}
   .selbar{left:8px;right:8px;width:auto;transform:none;bottom:calc(70px + env(safe-area-inset-bottom));padding:10px}
   .selbar .btn{padding:11px 4px}
+  .selbar .icbtn{padding:0}
+  body.bar main{padding-bottom:calc(230px + env(safe-area-inset-bottom))}
+  .seg button,.btn,.btn.small,.field{min-height:44px}
+  .check{min-height:44px}
+  .sw{width:44px;height:44px}
+  input[type=color]{width:44px;height:44px}
+  .row input[type=range]{height:44px}
 }
 </style>
 </head>
@@ -180,34 +205,34 @@ main{padding:24px;display:flex;flex-direction:column;align-items:center;gap:26px
     <section class="sheet" data-sheet="layout" data-title="จัดหน้า">
       <div class="sec">การจัดหน้า</div>
       <div class="group">
-        <label class="t">จำนวนรูปต่อหน้า</label>
-        <div class="seg" id="count">
+        <div class="t" id="lblCount">จำนวนรูปต่อหน้า</div>
+        <div class="seg" id="count" role="group" aria-labelledby="lblCount">
           <button data-v="4">4</button><button data-v="6" class="on">6</button><button data-v="9">9</button><button data-v="12">12</button>
         </div>
       </div>
       <div class="group">
-        <label class="t">กระดาษ A4</label>
-        <div class="seg" id="orient">
+        <div class="t" id="lblOrient">กระดาษ A4</div>
+        <div class="seg" id="orient" role="group" aria-labelledby="lblOrient">
           <button data-v="p" class="on">แนวตั้ง</button><button data-v="l">แนวนอน</button>
         </div>
       </div>
       <div class="group">
-        <label class="t">การวางรูปในช่อง</label>
-        <div class="seg" id="fit">
+        <div class="t" id="lblFit">การวางรูปในช่อง</div>
+        <div class="seg" id="fit" role="group" aria-labelledby="lblFit">
           <button data-v="cover" class="on">เต็มช่อง (ครอป)</button><button data-v="contain">พอดีช่อง</button>
         </div>
       </div>
       <div class="group">
-        <label class="t">ระยะห่างระหว่างรูป</label>
+        <label class="t" for="gap">ระยะห่างระหว่างรูป</label>
         <div class="row"><input type="range" id="gap" min="0" max="15" value="4"><output id="gapv">4 มม.</output></div>
       </div>
       <div class="group">
-        <label class="t">ขอบกระดาษ</label>
+        <label class="t" for="margin">ขอบกระดาษ</label>
         <div class="row"><input type="range" id="margin" min="5" max="25" value="10"><output id="marginv">10 มม.</output></div>
       </div>
       <div class="group">
-        <label class="t">สีพื้นหลัง</label>
-        <div class="swatches" id="bg">
+        <div class="t" id="lblBg">สีพื้นหลัง</div>
+        <div class="swatches" id="bg" role="group" aria-labelledby="lblBg">
           <button class="sw on" data-v="#ffffff" style="background:#fff" aria-label="ขาว"></button>
           <button class="sw" data-v="#f3ede1" style="background:#f3ede1" aria-label="ครีม"></button>
           <button class="sw" data-v="#1c1c1c" style="background:#1c1c1c" aria-label="ดำ"></button>
@@ -216,11 +241,11 @@ main{padding:24px;display:flex;flex-direction:column;align-items:center;gap:26px
       </div>
       <div class="sec">ขนาดตัวหนังสือ</div>
       <div class="group">
-        <label class="t">หัวเรื่อง วันที่ และเลขหน้า</label>
+        <label class="t" for="hdrScale">หัวเรื่อง วันที่ และเลขหน้า</label>
         <div class="row"><input type="range" id="hdrScale" min="70" max="170" step="10" value="100"><output id="hdrScalev">100%</output></div>
       </div>
       <div class="group">
-        <label class="t">คำอธิบายใต้รูป</label>
+        <label class="t" for="capScale">คำอธิบายใต้รูป</label>
         <div class="row"><input type="range" id="capScale" min="70" max="200" step="10" value="100"><output id="capScalev">100%</output></div>
       </div>
     </section>
@@ -236,7 +261,7 @@ main{padding:24px;display:flex;flex-direction:column;align-items:center;gap:26px
       <button class="btn" id="multiBtn">เลือกหลายรูปเพื่อลบ</button>
       <button class="btn danger" id="clearBtn">ล้างรูปทั้งหมด</button>
       <div class="hint">
-        <b>สลับรูป:</b> ลากรูปไปวางบนอีกช่อง (มือถือ: แตะค้างแล้วลาก)<br>
+        <b>สลับรูป:</b> ลากรูปไปวางบนอีกช่อง (มือถือ: แตะค้างแล้วลาก) หรือแตะรูปแล้วกดลูกศร ‹ ›<br>
         <b>แก้รูป:</b> แตะรูป แล้วใส่คำอธิบาย หมุน หรือลากในรูปเพื่อเลื่อนครอป</div>
     </section>
 
@@ -246,7 +271,7 @@ main{padding:24px;display:flex;flex-direction:column;align-items:center;gap:26px
       <div class="hint">ได้ 1 ไฟล์ต่อ 1 หน้ากระดาษ ขนาด A4 300 dpi พร้อมพิมพ์</div>
     </section>
 
-    <div class="status" id="status"></div>
+    <div class="status" id="status" role="status" aria-live="polite"></div>
 
     <div class="actions">
       <button class="btn primary" id="addBtn">+ เพิ่มรูป</button>
@@ -262,19 +287,25 @@ main{padding:24px;display:flex;flex-direction:column;align-items:center;gap:26px
 
 <div class="backdrop" id="backdrop"></div>
 
-<nav class="tabbar">
-  <button data-open="add" class="add"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>รูป</button>
-  <button data-open="job"><span class="ic"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z M14 3v5h5 M9 12h7 M9 16h7"/></svg></span>งาน</button>
-  <button data-open="layout"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 4h7v7H4z M13 4h7v7h-7z M4 13h7v7H4z M13 13h7v7h-7z"/></svg></span>จัดหน้า</button>
-  <button data-open="export"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 15V3 M7 8l5-5 5 5 M5 13v8h14v-8"/></svg></span>ส่งออก</button>
+<nav class="tabbar" aria-label="เมนูหลัก">
+  <button data-open="add" class="add"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></span>รูป</button>
+  <button data-open="job"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 3h9l4 4v14H6z M14 3v5h5 M9 12h7 M9 16h7"/></svg></span>งาน</button>
+  <button data-open="layout"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h7v7H4z M13 4h7v7h-7z M4 13h7v7H4z M13 13h7v7h-7z"/></svg></span>จัดหน้า</button>
+  <button data-open="export"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 15V3 M7 8l5-5 5 5 M5 13v8h14v-8"/></svg></span>ส่งออก</button>
 </nav>
 
 <div class="selbar" id="selbar">
-  <div class="ttl">รูปที่เลือก <span class="hint" id="cropHint">· ลากในรูปเพื่อเลื่อนครอป</span></div>
-  <input class="field" id="capInput" placeholder="คำอธิบายรูปนี้ เช่น ติดตั้งฝ้าชั้น 2" autocomplete="off" enterkeyhint="done">
+  <div class="head">
+    <div class="ttl"><span id="selPos">รูปที่เลือก</span> <span class="hint" id="cropHint">· ลากในรูปเพื่อเลื่อนครอป</span></div>
+    <div class="nav2">
+      <button class="btn icbtn" id="prevBtn" aria-label="ย้ายรูปไปก่อนหน้า"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button class="btn icbtn" id="nextBtn" aria-label="ย้ายรูปไปถัดไป"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></button>
+    </div>
+  </div>
+  <input class="field" id="capInput" placeholder="คำอธิบายรูปนี้ เช่น ติดตั้งฝ้าชั้น 2" aria-label="คำอธิบายรูปนี้" autocomplete="off" enterkeyhint="done">
   <div class="btn-row">
     <button class="btn" id="delBtn">ลบ</button>
-    <button class="btn" id="rotBtn">หมุน ↻</button>
+    <button class="btn" id="rotBtn">หมุน <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 12a8 8 0 1 1-2.3-5.6M20 4v5h-5"/></svg></button>
     <button class="btn" id="centerBtn">จัดกลาง</button>
     <button class="btn primary" id="unselBtn">เสร็จ</button>
   </div>
@@ -289,7 +320,7 @@ main{padding:24px;display:flex;flex-direction:column;align-items:center;gap:26px
 </div>
 
 <div class="ready" id="ready">
-  <div class="card">
+  <div class="card" role="dialog" aria-modal="true" aria-labelledby="readyTxt">
     <div class="ttl" id="readyTxt">พร้อมแล้ว</div>
     <div class="hint">กด “บันทึก” แล้วเลือก “บันทึกรูปภาพ” หรือ “บันทึกไปยังแอปไฟล์”</div>
     <div class="btn-row">
@@ -299,7 +330,7 @@ main{padding:24px;display:flex;flex-direction:column;align-items:center;gap:26px
   </div>
 </div>
 
-<div class="toast" id="toast"><span id="toastTxt"></span><div class="bar"><i id="toastBar"></i></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toastTxt"></span><div class="bar"><i id="toastBar"></i></div></div>
 <input type="file" id="file" accept="image/*,.heic,.heif" multiple hidden>
 <input type="file" id="cam" accept="image/*" capture="environment" hidden>
 
@@ -337,6 +368,7 @@ function render(){
   applyScale();
   const [W,H]=dims(), cs=cells(), root=$('pages'), n=pageCount(), m=S.margin;
   const cq=mm=>`${mm/W*100}cqw`;
+  const focusIdx=document.activeElement?.closest?.('#pages .cell')?.dataset.idx;
   root.innerHTML='';
   for(let p=0;p<n;p++){
     const wrap=document.createElement('div');
@@ -360,6 +392,10 @@ function render(){
       const el=document.createElement('div');
       el.className='cell'+(ph?'':' empty')+(idx===S.sel?' sel':'')+(S.multi&&ph?' pick':'')+(ph&&S.picked.has(ph)?' on':'');
       el.dataset.idx=idx;
+      el.tabIndex=0;el.setAttribute('role','button');
+      el.setAttribute('aria-label',ph?`รูปที่ ${idx+1}${ph.cap?' · '+ph.cap:''}`:'ช่องว่าง เพิ่มรูป');
+      if(ph)el.setAttribute('aria-pressed',S.multi?String(S.picked.has(ph)):String(idx===S.sel));
+      el.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();tapCell(idx);}};
       Object.assign(el.style,{left:c.x/W*100+'%',top:c.y/H*100+'%',width:c.w/W*100+'%',height:c.h/H*100+'%'});
       const im=document.createElement('div');im.className='im';
       if(ph){const i=new Image();i.src=ph.url;i.draggable=false;i.style.objectFit=S.fit;
@@ -377,7 +413,11 @@ function render(){
     });
     wrap.appendChild(page);root.appendChild(wrap);
   }
+  if(focusIdx!=null)root.querySelector(`.cell[data-idx="${focusIdx}"]`)?.focus({preventScroll:true});
   const sel=S.photos[S.sel];
+  document.body.classList.toggle('bar',(!!sel&&!S.multi)||S.multi);
+  if(sel){$('selPos').textContent=`รูปที่ ${S.sel+1} จาก ${S.photos.length}`;
+    $('prevBtn').disabled=S.sel<=0;$('nextBtn').disabled=S.sel>=S.photos.length-1;}
   $('selbar').classList.toggle('show',!!sel&&!S.multi);
   $('cropHint').style.display=S.fit==='cover'?'':'none';
   $('multibar').classList.toggle('show',S.multi);
@@ -400,7 +440,21 @@ function tapCell(idx){
   if(S.multi){S.picked.has(ph)?S.picked.delete(ph):S.picked.add(ph);render();return;}
   S.sel=S.sel===idx?-1:idx;
   render();
+  revealSel();
   if(S.sel>=0&&S.captions&&!matchMedia('(pointer:coarse)').matches)$('capInput').focus();
+}
+
+// keep the selected photo visible above the floating tool bar (phones)
+function revealSel(){
+  const c=document.querySelector('#pages .cell.sel'),bar=$('selbar');if(!c||!bar.classList.contains('show'))return;
+  const r=c.getBoundingClientRect(),top=bar.getBoundingClientRect().top-12,head=isPhone()?64:12;
+  if(r.bottom>top)window.scrollBy({top:Math.min(r.bottom-top,r.top-head),behavior:'smooth'});
+  else if(r.top<head)window.scrollBy({top:r.top-head,behavior:'smooth'});
+}
+// single-pointer / keyboard alternative to drag-to-swap
+function moveSel(d){
+  const i=S.sel,j=i+d,a=S.photos;if(i<0||j<0||j>=a.length)return;
+  [a[i],a[j]]=[a[j],a[i]];S.sel=j;render();revealSel();
 }
 
 /* ---------- pointer: tap = select, drag = swap, drag on selected = move crop ---------- */
@@ -497,6 +551,7 @@ seg('count','count',true);seg('orient','orient');seg('fit','fit');
 $('sortBtn').onclick=sortAll;
 ['hdrScale','capScale'].forEach(k=>$(k).oninput=e=>{S[k]=e.target.value/100;syncUI();render();});
 $('rotBtn').onclick=rotateSel;
+$('prevBtn').onclick=()=>moveSel(-1);$('nextBtn').onclick=()=>moveSel(1);
 $('centerBtn').onclick=()=>{const ph=S.photos[S.sel];if(ph){ph.px=ph.py=.5;render();}};
 $('multiBtn').onclick=()=>{closeSheet();S.multi=true;S.sel=-1;S.picked.clear();render();};
 $('pickDone').onclick=()=>{S.multi=false;S.picked.clear();render();};
@@ -521,11 +576,11 @@ document.addEventListener('drop',e=>{e.preventDefault();loadFiles([...e.dataTran
 
 function syncUI(){
   [['count',S.count],['orient',S.orient],['fit',S.fit]].forEach(([id,v])=>
-    $(id).querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.v==String(v))));
+    $(id).querySelectorAll('button').forEach(b=>{const on=b.dataset.v==String(v);b.classList.toggle('on',on);b.setAttribute('aria-pressed',on);}));
   $('gap').value=S.gap;$('gapv').textContent=S.gap+' มม.';
   $('margin').value=S.margin;$('marginv').textContent=S.margin+' มม.';
   ['hdrScale','capScale'].forEach(k=>{$(k).value=Math.round(S[k]*100);$(k+'v').textContent=Math.round(S[k]*100)+'%';});
-  document.querySelectorAll('#bg .sw').forEach(b=>b.classList.toggle('on',b.dataset.v===S.bg));
+  document.querySelectorAll('#bg .sw').forEach(b=>{const on=b.dataset.v===S.bg;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on);});
   $('title').value=S.title;$('detail').value=S.detail;$('date').value=S.date;
   ['showHeader','showDate','showPage','captions','sortTime'].forEach(k=>$(k).checked=S[k]);
   ['showDate','showPage'].forEach(k=>$(k).parentElement.classList.toggle('off',!S.showHeader));
@@ -716,7 +771,7 @@ let readyFiles=null;
 function deliver(files,label){
   const canShare=matchMedia('(pointer:coarse)').matches&&navigator.canShare&&navigator.canShare({files});
   if(!canShare){files.forEach(f=>download(f,f.name));status(`บันทึกแล้ว ${label}`);return;}
-  readyFiles=files;$('readyTxt').textContent=`พร้อมแล้ว: ${label}`;$('ready').classList.add('show');
+  readyFiles=files;$('readyTxt').textContent=`พร้อมแล้ว: ${label}`;$('ready').classList.add('show');$('readyGo').focus();
 }
 $('readyGo').onclick=async()=>{const files=readyFiles;$('ready').classList.remove('show');readyFiles=null;
   try{await navigator.share({files});}catch(e){if(e.name!=='AbortError'){files.forEach(f=>download(f,f.name));}}};
@@ -764,6 +819,13 @@ $('backdrop').onclick=closeSheet;$('sheetClose').onclick=closeSheet;
 (()=>{let y0=null;const h=$('sheetHead');            // swipe the sheet header down to close
   h.addEventListener('pointerdown',e=>{y0=e.clientY;});
   h.addEventListener('pointerup',e=>{if(y0!==null&&e.clientY-y0>50)closeSheet();y0=null;});})();
+document.addEventListener('keydown',e=>{
+  if(e.key!=='Escape')return;
+  if($('ready').classList.contains('show'))$('readyCancel').click();
+  else if($('side').classList.contains('open'))closeSheet();
+  else if(S.multi)$('pickDone').click();
+  else if(S.sel>=0){S.sel=-1;render();}
+});
 $('pickBtn').onclick=()=>{$('file').click();closeSheet();};
 $('camBtn').onclick=()=>{$('cam').click();closeSheet();};
 $('cam').onchange=e=>{loadFiles([...e.target.files]);e.target.value='';};

@@ -1,0 +1,13 @@
+{
+  "name": "photo-report",
+  "private": true,
+  "scripts": {
+    "test": "playwright test --trace off",
+    "test:ui": "playwright test --ui",
+    "fixtures": "python3 tests/make-fixtures.py"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "jspdf": "2.5.1"
+  }
+}
