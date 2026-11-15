@@ -120,3 +120,36 @@ test('exports one JPG per page', async ({ page }) => {
   const buf = require('fs').readFileSync(await files[0].path());
   expect([buf[0], buf[1]]).toEqual([0xff, 0xd8]);   // JPEG magic
 });
+
+test('arrow buttons move the selected photo (no drag needed)', async ({ page }) => {
+  await addPhotos(page, PHOTOS.slice(0, 3));        // order: c, b, a
+  await filledCells(page).first().click();
+  await expect(page.locator('#selPos')).toHaveText('รูปที่ 1 จาก 3');
+  await expect(page.locator('#prevBtn')).toBeDisabled();
+  await page.locator('#nextBtn').click();
+  expect(await photoNames(page)).toEqual(['b.jpg', 'c.jpg', 'a.jpg']);
+  await expect(page.locator('#selPos')).toHaveText('รูปที่ 2 จาก 3');
+  await page.locator('#nextBtn').click();
+  await expect(page.locator('#nextBtn')).toBeDisabled();
+  await page.locator('#prevBtn').click();
+  expect(await photoNames(page)).toEqual(['b.jpg', 'c.jpg', 'a.jpg']);
+});
+
+test('keyboard: Enter selects a photo, Escape deselects', async ({ page }) => {
+  await addPhotos(page, PHOTOS.slice(0, 2));
+  await filledCells(page).nth(1).focus();
+  await page.keyboard.press('Enter');
+  await expect(filledCells(page).nth(1)).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('#selbar')).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#selbar')).toBeHidden();
+});
+
+test('toggle groups expose their selected state', async ({ page }) => {
+  await expect(page.locator('#count button[data-v="6"]')).toHaveAttribute('aria-pressed', 'true');
+  await page.locator('#count button[data-v="9"]').click();
+  await expect(page.locator('#count button[data-v="9"]')).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('#count button[data-v="6"]')).toHaveAttribute('aria-pressed', 'false');
+  await page.locator('#bg .sw[data-v="#1c1c1c"]').click();
+  await expect(page.locator('#bg .sw[data-v="#1c1c1c"]')).toHaveAttribute('aria-pressed', 'true');
+});
